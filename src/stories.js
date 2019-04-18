@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Story = require('./models/Story');
 
 const connect = () => {
   return mongoose.connect('mongodb://serverless:serverless@ds239128.mlab.com:39128/serverless');
@@ -8,6 +9,7 @@ const createResponse = (status, body) => ({
   statusCode: status,
   body: JSON.stringify(body)
 });
+
 
 // 스토리 만들기
 exports.createStory = (event, ctx, cb) => {
