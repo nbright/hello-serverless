@@ -22,8 +22,8 @@ provider:
   runtime: nodejs8.10
 
 # you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
+  stage: dev
+  region: ap-northeast-2
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -54,17 +54,38 @@ provider:
 #    - exclude-me.js
 #    - exclude-me-dir/**
 
-functions:
-  hello:
-    handler: handler.hello
 
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
-#    events:
-#      - http:
-#          path: users/create
-#          method: get
+functions:
+  createStory:
+    handler: src/stories.createStory
+    events:
+      - http:
+          path: stories
+          method: post
+  readStories:
+    handler: src/stories.readStories
+    events:
+      - http:
+          path: stories
+          method: get
+  readStory:
+    handler: src/stories.readStory
+    events:
+      - http:
+          path: stories/{id}
+          method: get
+  updateStory:
+    handler: src/stories.updateStory
+    events:
+      - http:
+          path: stories/{id}
+          method: patch
+  deleteStory:
+    handler: src/stories.deleteStory
+    events:
+      - http:
+          path: stories/{id}
+          method: delete
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
